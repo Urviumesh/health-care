@@ -18,22 +18,22 @@ pipeline {
 		}
        stage("Docker build"){
             steps {
-				sh 'docker version'
-				sh "docker build -t urvi11umesh/healthcare-app:${BUILD_NUMBER} ."
-				sh 'docker image list'
-				sh "docker tag urvi11umesh/healthcare-app:${BUILD_NUMBER}urvi11umesh/healthcare-app:latest"
+	      sh 'docker version'
+	      sh "docker build -t urvi11umesh/healthcare-app:${BUILD_NUMBER} ."
+	      sh 'docker image list'
+	      sh "docker tag urvi11umesh/healthcare-app:${BUILD_NUMBER}urvi11umesh/healthcare-app:latest"
             }
         }
 		stage('Login2DockerHub') {
 
 			steps {
-				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+			  sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 			}
 		}
 		stage('Push2DockerHub') {
 
 			steps {
-				sh "docker push urvi11umesh/healthcare-app:latest"
+			   sh "docker push urvi11umesh/healthcare-app:latest"
 			}
 		}
         stage('Deploy to Kubernetes Dev Environment.....') {
